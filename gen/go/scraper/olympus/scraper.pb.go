@@ -241,7 +241,7 @@ const file_olympus_scraper_proto_rawDesc = "" +
 	"\bnew_hash\x18\x01 \x01(\tR\anewHash\x12/\n" +
 	"\temployees\x18\x02 \x03(\v2\x11.scraper.EmployeeR\temployees2]\n" +
 	"\x0eScraperService\x12K\n" +
-	"\fGetEmployees\x12\x1c.scraper.GetEmployeesRequest\x1a\x1d.scraper.GetEmployeesResponseB2Z0github.com/Houeta/radioguru-proto/gen/go/scraperb\x06proto3"
+	"\fGetEmployees\x12\x1c.scraper.GetEmployeesRequest\x1a\x1d.scraper.GetEmployeesResponseB9Z7github.com/UnknownOlympus/olympus-protos/gen/go/scraperb\x06proto3"
 
 var (
 	file_olympus_scraper_proto_rawDescOnce sync.Once
