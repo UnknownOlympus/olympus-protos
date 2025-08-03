@@ -10,6 +10,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
+	wrapperspb "google.golang.org/protobuf/types/known/wrapperspb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -343,9 +344,9 @@ func (x *GetEmployeesResponse) GetEmployees() []*Employee {
 }
 
 type GetDailyTasksRequest struct {
-	state         protoimpl.MessageState `protogen:"open.v1"`
-	KnownHash     string                 `protobuf:"bytes,1,opt,name=known_hash,json=knownHash,proto3" json:"known_hash,omitempty"`
-	Date          *timestamppb.Timestamp `protobuf:"bytes,2,opt,name=date,proto3" json:"date,omitempty"`
+	state         protoimpl.MessageState  `protogen:"open.v1"`
+	KnownHash     string                  `protobuf:"bytes,1,opt,name=known_hash,json=knownHash,proto3" json:"known_hash,omitempty"`
+	Date          *wrapperspb.StringValue `protobuf:"bytes,2,opt,name=date,proto3" json:"date,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -387,7 +388,7 @@ func (x *GetDailyTasksRequest) GetKnownHash() string {
 	return ""
 }
 
-func (x *GetDailyTasksRequest) GetDate() *timestamppb.Timestamp {
+func (x *GetDailyTasksRequest) GetDate() *wrapperspb.StringValue {
 	if x != nil {
 		return x.Date
 	}
@@ -450,7 +451,7 @@ var File_olympus_scraper_proto protoreflect.FileDescriptor
 
 const file_olympus_scraper_proto_rawDesc = "" +
 	"\n" +
-	"\x15olympus/scraper.proto\x12\ascraper\x1a\x1fgoogle/protobuf/timestamp.proto\"\x92\x02\n" +
+	"\x15olympus/scraper.proto\x12\ascraper\x1a\x1fgoogle/protobuf/timestamp.proto\x1a\x1egoogle/protobuf/wrappers.proto\"\x92\x02\n" +
 	"\bEmployee\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x1a\n" +
 	"\bfullname\x18\x02 \x01(\tR\bfullname\x12\x1c\n" +
@@ -480,11 +481,11 @@ const file_olympus_scraper_proto_rawDesc = "" +
 	"known_hash\x18\x01 \x01(\tR\tknownHash\"b\n" +
 	"\x14GetEmployeesResponse\x12\x19\n" +
 	"\bnew_hash\x18\x01 \x01(\tR\anewHash\x12/\n" +
-	"\temployees\x18\x02 \x03(\v2\x11.scraper.EmployeeR\temployees\"e\n" +
+	"\temployees\x18\x02 \x03(\v2\x11.scraper.EmployeeR\temployees\"g\n" +
 	"\x14GetDailyTasksRequest\x12\x1d\n" +
 	"\n" +
-	"known_hash\x18\x01 \x01(\tR\tknownHash\x12.\n" +
-	"\x04date\x18\x02 \x01(\v2\x1a.google.protobuf.TimestampR\x04date\"W\n" +
+	"known_hash\x18\x01 \x01(\tR\tknownHash\x120\n" +
+	"\x04date\x18\x02 \x01(\v2\x1c.google.protobuf.StringValueR\x04date\"W\n" +
 	"\x15GetDailyTasksResponse\x12\x19\n" +
 	"\bnew_hash\x18\x01 \x01(\tR\anewHash\x12#\n" +
 	"\x05tasks\x18\x02 \x03(\v2\r.scraper.TaskR\x05tasks2\xad\x01\n" +
@@ -506,13 +507,14 @@ func file_olympus_scraper_proto_rawDescGZIP() []byte {
 
 var file_olympus_scraper_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
 var file_olympus_scraper_proto_goTypes = []any{
-	(*Employee)(nil),              // 0: scraper.Employee
-	(*Task)(nil),                  // 1: scraper.Task
-	(*GetEmployeesRequest)(nil),   // 2: scraper.GetEmployeesRequest
-	(*GetEmployeesResponse)(nil),  // 3: scraper.GetEmployeesResponse
-	(*GetDailyTasksRequest)(nil),  // 4: scraper.GetDailyTasksRequest
-	(*GetDailyTasksResponse)(nil), // 5: scraper.GetDailyTasksResponse
-	(*timestamppb.Timestamp)(nil), // 6: google.protobuf.Timestamp
+	(*Employee)(nil),               // 0: scraper.Employee
+	(*Task)(nil),                   // 1: scraper.Task
+	(*GetEmployeesRequest)(nil),    // 2: scraper.GetEmployeesRequest
+	(*GetEmployeesResponse)(nil),   // 3: scraper.GetEmployeesResponse
+	(*GetDailyTasksRequest)(nil),   // 4: scraper.GetDailyTasksRequest
+	(*GetDailyTasksResponse)(nil),  // 5: scraper.GetDailyTasksResponse
+	(*timestamppb.Timestamp)(nil),  // 6: google.protobuf.Timestamp
+	(*wrapperspb.StringValue)(nil), // 7: google.protobuf.StringValue
 }
 var file_olympus_scraper_proto_depIdxs = []int32{
 	6, // 0: scraper.Employee.created_at:type_name -> google.protobuf.Timestamp
@@ -520,7 +522,7 @@ var file_olympus_scraper_proto_depIdxs = []int32{
 	6, // 2: scraper.Task.creation_date:type_name -> google.protobuf.Timestamp
 	6, // 3: scraper.Task.closing_date:type_name -> google.protobuf.Timestamp
 	0, // 4: scraper.GetEmployeesResponse.employees:type_name -> scraper.Employee
-	6, // 5: scraper.GetDailyTasksRequest.date:type_name -> google.protobuf.Timestamp
+	7, // 5: scraper.GetDailyTasksRequest.date:type_name -> google.protobuf.StringValue
 	1, // 6: scraper.GetDailyTasksResponse.tasks:type_name -> scraper.Task
 	2, // 7: scraper.ScraperService.GetEmployees:input_type -> scraper.GetEmployeesRequest
 	4, // 8: scraper.ScraperService.GetDailyTasks:input_type -> scraper.GetDailyTasksRequest
