@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v6.31.1
-// source: radioguru/scraper.proto
+// source: olympus/scraper.proto
 
 package scraper
 
@@ -19,21 +19,15 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ScraperService_GetCommutationData_FullMethodName = "/scraper.ScraperService/GetCommutationData"
-	ScraperService_GetEmployees_FullMethodName       = "/scraper.ScraperService/GetEmployees"
-	ScraperService_GetDailyTasks_FullMethodName      = "/scraper.ScraperService/GetDailyTasks"
+	ScraperService_GetEmployees_FullMethodName = "/scraper.ScraperService/GetEmployees"
 )
 
 // ScraperServiceClient is the client API for ScraperService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type ScraperServiceClient interface {
-	// Method to get switching data.
-	GetCommutationData(ctx context.Context, in *GetCommutationRequest, opts ...grpc.CallOption) (*GetCommutationResponse, error)
 	// Method to get a list of employees.
 	GetEmployees(ctx context.Context, in *GetEmployeesRequest, opts ...grpc.CallOption) (*GetEmployeesResponse, error)
-	// Method for getting tasks for the current day.
-	GetDailyTasks(ctx context.Context, in *GetDailyTasksRequest, opts ...grpc.CallOption) (*GetDailyTasksResponse, error)
 }
 
 type scraperServiceClient struct {
@@ -42,16 +36,6 @@ type scraperServiceClient struct {
 
 func NewScraperServiceClient(cc grpc.ClientConnInterface) ScraperServiceClient {
 	return &scraperServiceClient{cc}
-}
-
-func (c *scraperServiceClient) GetCommutationData(ctx context.Context, in *GetCommutationRequest, opts ...grpc.CallOption) (*GetCommutationResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetCommutationResponse)
-	err := c.cc.Invoke(ctx, ScraperService_GetCommutationData_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
 }
 
 func (c *scraperServiceClient) GetEmployees(ctx context.Context, in *GetEmployeesRequest, opts ...grpc.CallOption) (*GetEmployeesResponse, error) {
@@ -64,26 +48,12 @@ func (c *scraperServiceClient) GetEmployees(ctx context.Context, in *GetEmployee
 	return out, nil
 }
 
-func (c *scraperServiceClient) GetDailyTasks(ctx context.Context, in *GetDailyTasksRequest, opts ...grpc.CallOption) (*GetDailyTasksResponse, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetDailyTasksResponse)
-	err := c.cc.Invoke(ctx, ScraperService_GetDailyTasks_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // ScraperServiceServer is the server API for ScraperService service.
 // All implementations must embed UnimplementedScraperServiceServer
 // for forward compatibility.
 type ScraperServiceServer interface {
-	// Method to get switching data.
-	GetCommutationData(context.Context, *GetCommutationRequest) (*GetCommutationResponse, error)
 	// Method to get a list of employees.
 	GetEmployees(context.Context, *GetEmployeesRequest) (*GetEmployeesResponse, error)
-	// Method for getting tasks for the current day.
-	GetDailyTasks(context.Context, *GetDailyTasksRequest) (*GetDailyTasksResponse, error)
 	mustEmbedUnimplementedScraperServiceServer()
 }
 
@@ -94,14 +64,8 @@ type ScraperServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedScraperServiceServer struct{}
 
-func (UnimplementedScraperServiceServer) GetCommutationData(context.Context, *GetCommutationRequest) (*GetCommutationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetCommutationData not implemented")
-}
 func (UnimplementedScraperServiceServer) GetEmployees(context.Context, *GetEmployeesRequest) (*GetEmployeesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEmployees not implemented")
-}
-func (UnimplementedScraperServiceServer) GetDailyTasks(context.Context, *GetDailyTasksRequest) (*GetDailyTasksResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetDailyTasks not implemented")
 }
 func (UnimplementedScraperServiceServer) mustEmbedUnimplementedScraperServiceServer() {}
 func (UnimplementedScraperServiceServer) testEmbeddedByValue()                        {}
@@ -124,24 +88,6 @@ func RegisterScraperServiceServer(s grpc.ServiceRegistrar, srv ScraperServiceSer
 	s.RegisterService(&ScraperService_ServiceDesc, srv)
 }
 
-func _ScraperService_GetCommutationData_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetCommutationRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScraperServiceServer).GetCommutationData(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScraperService_GetCommutationData_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScraperServiceServer).GetCommutationData(ctx, req.(*GetCommutationRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 func _ScraperService_GetEmployees_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetEmployeesRequest)
 	if err := dec(in); err != nil {
@@ -160,24 +106,6 @@ func _ScraperService_GetEmployees_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _ScraperService_GetDailyTasks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetDailyTasksRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(ScraperServiceServer).GetDailyTasks(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: ScraperService_GetDailyTasks_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ScraperServiceServer).GetDailyTasks(ctx, req.(*GetDailyTasksRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // ScraperService_ServiceDesc is the grpc.ServiceDesc for ScraperService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -186,18 +114,10 @@ var ScraperService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*ScraperServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "GetCommutationData",
-			Handler:    _ScraperService_GetCommutationData_Handler,
-		},
-		{
 			MethodName: "GetEmployees",
 			Handler:    _ScraperService_GetEmployees_Handler,
 		},
-		{
-			MethodName: "GetDailyTasks",
-			Handler:    _ScraperService_GetDailyTasks_Handler,
-		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "radioguru/scraper.proto",
+	Metadata: "olympus/scraper.proto",
 }

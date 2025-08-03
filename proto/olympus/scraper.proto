@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package scraper;
+
+option go_package = "github.com/Houeta/radioguru-proto/gen/go/scraper";
+
+import "google/protobuf/timestamp.proto";
+
+message Employee {
+  int64 id = 1;
+  string fullname = 2;
+  string shortname = 3;
+  string position = 4;
+  string email = 5;
+  string phone = 6;
+  google.protobuf.Timestamp created_at = 7;
+  google.protobuf.Timestamp updated_at = 8;
+}
+
+// message Task {
+//   int64 id = 1;
+//   int64 type_id = 2;
+//   string type_name = 3;
+//   google.protobuf.Timestamp creation_date = 4;
+//   google.protobuf.Timestamp closing_date = 5;
+//   string description = 6;
+//   string address = 7;
+//   string customer_name = 8;
+//   string customer_login = 9;
+//   repeated string comments = 10;
+//   bool is_closed = 11;
+// }
+
+// message GetCommutationRequest {
+//   double latitude = 1;
+//   double longitude = 2;
+// }
+// 
+// message GetCommutationResponse {
+//   bytes screenshot_png = 1;
+//   repeated NearbyObject nearby_objects = 2;
+// }
+// 
+// message NearbyObject {
+//   int64 id = 1;
+//   string name = 2;
+//   string type = 3;
+// }
+
+service ScraperService {
+  // Method to get switching data.
+  // rpc GetCommutationData(GetCommutationRequest) returns (GetCommutationResponse);
+
+  // Method to get a list of employees.
+  rpc GetEmployees(GetEmployeesRequest) returns (GetEmployeesResponse);
+
+  // Method for getting tasks for the current day.
+  // rpc GetDailyTasks(GetDailyTasksRequest) returns (GetDailyTasksResponse);
+}
+
+message GetEmployeesRequest {
+    string known_hash = 1;
+}
+message GetEmployeesResponse {
+  string new_hash = 1;
+  repeated Employee employees = 2;
+}
+
+// message GetDailyTasksRequest {
+//   string known_hash = 1;
+// }
+// 
+// message GetDailyTasksResponse {
+//   string new_hash = 1;
+//   repeated Task tasks = 2;
+// }
