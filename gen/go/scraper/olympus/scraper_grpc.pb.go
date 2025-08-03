@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	ScraperService_GetEmployees_FullMethodName = "/scraper.ScraperService/GetEmployees"
+	ScraperService_GetEmployees_FullMethodName  = "/scraper.ScraperService/GetEmployees"
+	ScraperService_GetDailyTasks_FullMethodName = "/scraper.ScraperService/GetDailyTasks"
 )
 
 // ScraperServiceClient is the client API for ScraperService service.
@@ -28,6 +29,8 @@ const (
 type ScraperServiceClient interface {
 	// Method to get a list of employees.
 	GetEmployees(ctx context.Context, in *GetEmployeesRequest, opts ...grpc.CallOption) (*GetEmployeesResponse, error)
+	// Method for getting tasks for the current day.
+	GetDailyTasks(ctx context.Context, in *GetDailyTasksRequest, opts ...grpc.CallOption) (*GetDailyTasksResponse, error)
 }
 
 type scraperServiceClient struct {
@@ -48,12 +51,24 @@ func (c *scraperServiceClient) GetEmployees(ctx context.Context, in *GetEmployee
 	return out, nil
 }
 
+func (c *scraperServiceClient) GetDailyTasks(ctx context.Context, in *GetDailyTasksRequest, opts ...grpc.CallOption) (*GetDailyTasksResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetDailyTasksResponse)
+	err := c.cc.Invoke(ctx, ScraperService_GetDailyTasks_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ScraperServiceServer is the server API for ScraperService service.
 // All implementations must embed UnimplementedScraperServiceServer
 // for forward compatibility.
 type ScraperServiceServer interface {
 	// Method to get a list of employees.
 	GetEmployees(context.Context, *GetEmployeesRequest) (*GetEmployeesResponse, error)
+	// Method for getting tasks for the current day.
+	GetDailyTasks(context.Context, *GetDailyTasksRequest) (*GetDailyTasksResponse, error)
 	mustEmbedUnimplementedScraperServiceServer()
 }
 
@@ -66,6 +81,9 @@ type UnimplementedScraperServiceServer struct{}
 
 func (UnimplementedScraperServiceServer) GetEmployees(context.Context, *GetEmployeesRequest) (*GetEmployeesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetEmployees not implemented")
+}
+func (UnimplementedScraperServiceServer) GetDailyTasks(context.Context, *GetDailyTasksRequest) (*GetDailyTasksResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetDailyTasks not implemented")
 }
 func (UnimplementedScraperServiceServer) mustEmbedUnimplementedScraperServiceServer() {}
 func (UnimplementedScraperServiceServer) testEmbeddedByValue()                        {}
@@ -106,6 +124,24 @@ func _ScraperService_GetEmployees_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ScraperService_GetDailyTasks_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetDailyTasksRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScraperServiceServer).GetDailyTasks(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScraperService_GetDailyTasks_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScraperServiceServer).GetDailyTasks(ctx, req.(*GetDailyTasksRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ScraperService_ServiceDesc is the grpc.ServiceDesc for ScraperService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -116,6 +152,10 @@ var ScraperService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetEmployees",
 			Handler:    _ScraperService_GetEmployees_Handler,
+		},
+		{
+			MethodName: "GetDailyTasks",
+			Handler:    _ScraperService_GetDailyTasks_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

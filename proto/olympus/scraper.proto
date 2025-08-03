@@ -17,19 +17,19 @@ message Employee {
   google.protobuf.Timestamp updated_at = 8;
 }
 
-// message Task {
-//   int64 id = 1;
-//   int64 type_id = 2;
-//   string type_name = 3;
-//   google.protobuf.Timestamp creation_date = 4;
-//   google.protobuf.Timestamp closing_date = 5;
-//   string description = 6;
-//   string address = 7;
-//   string customer_name = 8;
-//   string customer_login = 9;
-//   repeated string comments = 10;
-//   bool is_closed = 11;
-// }
+message Task {
+  int64 id = 1;
+  string type = 2;
+  google.protobuf.Timestamp creation_date = 3;
+  google.protobuf.Timestamp closing_date = 4;
+  string description = 5;
+  string address = 6;
+  string customer_name = 7;
+  string customer_login = 8;
+  repeated string comments = 9;
+  repeated string executors = 10;
+  bool is_closed = 11;
+}
 
 // message GetCommutationRequest {
 //   double latitude = 1;
@@ -55,7 +55,7 @@ service ScraperService {
   rpc GetEmployees(GetEmployeesRequest) returns (GetEmployeesResponse);
 
   // Method for getting tasks for the current day.
-  // rpc GetDailyTasks(GetDailyTasksRequest) returns (GetDailyTasksResponse);
+  rpc GetDailyTasks(GetDailyTasksRequest) returns (GetDailyTasksResponse);
 }
 
 message GetEmployeesRequest {
@@ -66,11 +66,12 @@ message GetEmployeesResponse {
   repeated Employee employees = 2;
 }
 
-// message GetDailyTasksRequest {
-//   string known_hash = 1;
-// }
-// 
-// message GetDailyTasksResponse {
-//   string new_hash = 1;
-//   repeated Task tasks = 2;
-// }
+message GetDailyTasksRequest {
+  string known_hash = 1;
+  google.protobuf.Timestamp date = 2;
+}
+
+message GetDailyTasksResponse {
+  string new_hash = 1;
+  repeated Task tasks = 2;
+}
