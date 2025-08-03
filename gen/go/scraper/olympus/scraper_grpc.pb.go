@@ -4,7 +4,7 @@
 // - protoc             v6.31.1
 // source: olympus/scraper.proto
 
-package scraper
+package olympus
 
 import (
 	context "context"

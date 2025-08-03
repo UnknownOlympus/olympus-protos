@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package scraper;
 
-option go_package = "github.com/UnknownOlympus/olympus-protos/gen/go/scraper";
+option go_package = "github.com/UnknownOlympus/olympus-protos/gen/go/scraper/olympus";
 
 import "google/protobuf/timestamp.proto";
 
