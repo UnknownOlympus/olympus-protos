@@ -57,6 +57,9 @@ service ScraperService {
 
   // Method for getting tasks for the current day.
   rpc GetDailyTasks(GetDailyTasksRequest) returns (GetDailyTasksResponse);
+
+  // Method to get a list of type of tasks.
+  rpc GetTaskTypes(GetTaskTypesRequest) returns (GetTaskTypesResponse);
 }
 
 message GetEmployeesRequest {
@@ -75,4 +78,13 @@ message GetDailyTasksRequest {
 message GetDailyTasksResponse {
   string new_hash = 1;
   repeated Task tasks = 2;
+}
+
+message GetTaskTypesRequest {
+  string known_hash = 1;
+}
+
+message GetTaskTypesResponse {
+  string new_hash = 1;
+  repeated string types = 2;
 }
