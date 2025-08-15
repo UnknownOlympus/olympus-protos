@@ -30,7 +30,7 @@ message Task {
   google.protobuf.Timestamp closing_date = 4;
   string description = 5;
   string address = 6;
-  Customer customers = 7;
+  repeated Customer customers = 7;
   repeated string comments = 8;
   repeated string executors = 9;
   bool is_closed = 10;

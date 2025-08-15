@@ -183,7 +183,7 @@ type Task struct {
 	ClosingDate   *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=closing_date,json=closingDate,proto3" json:"closing_date,omitempty"`
 	Description   string                 `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
 	Address       string                 `protobuf:"bytes,6,opt,name=address,proto3" json:"address,omitempty"`
-	Customers     *Customer              `protobuf:"bytes,7,opt,name=customers,proto3" json:"customers,omitempty"`
+	Customers     []*Customer            `protobuf:"bytes,7,rep,name=customers,proto3" json:"customers,omitempty"`
 	Comments      []string               `protobuf:"bytes,8,rep,name=comments,proto3" json:"comments,omitempty"`
 	Executors     []string               `protobuf:"bytes,9,rep,name=executors,proto3" json:"executors,omitempty"`
 	IsClosed      bool                   `protobuf:"varint,10,opt,name=is_closed,json=isClosed,proto3" json:"is_closed,omitempty"`
@@ -263,7 +263,7 @@ func (x *Task) GetAddress() string {
 	return ""
 }
 
-func (x *Task) GetCustomers() *Customer {
+func (x *Task) GetCustomers() []*Customer {
 	if x != nil {
 		return x.Customers
 	}
@@ -613,7 +613,7 @@ const file_olympus_scraper_proto_rawDesc = "" +
 	"\fclosing_date\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\vclosingDate\x12 \n" +
 	"\vdescription\x18\x05 \x01(\tR\vdescription\x12\x18\n" +
 	"\aaddress\x18\x06 \x01(\tR\aaddress\x12/\n" +
-	"\tcustomers\x18\a \x01(\v2\x11.scraper.CustomerR\tcustomers\x12\x1a\n" +
+	"\tcustomers\x18\a \x03(\v2\x11.scraper.CustomerR\tcustomers\x12\x1a\n" +
 	"\bcomments\x18\b \x03(\tR\bcomments\x12\x1c\n" +
 	"\texecutors\x18\t \x03(\tR\texecutors\x12\x1b\n" +
 	"\tis_closed\x18\n" +
