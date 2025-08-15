@@ -18,6 +18,11 @@ message Employee {
   google.protobuf.Timestamp updated_at = 8;
 }
 
+message Customer {
+  string name = 1;
+  string login = 2;
+}
+
 message Task {
   int64 id = 1;
   string type = 2;
@@ -25,11 +30,10 @@ message Task {
   google.protobuf.Timestamp closing_date = 4;
   string description = 5;
   string address = 6;
-  string customer_name = 7;
-  string customer_login = 8;
-  repeated string comments = 9;
-  repeated string executors = 10;
-  bool is_closed = 11;
+  Customer customers = 7;
+  repeated string comments = 8;
+  repeated string executors = 9;
+  bool is_closed = 10;
 }
 
 // message GetCommutationRequest {

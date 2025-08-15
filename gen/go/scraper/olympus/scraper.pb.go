@@ -123,6 +123,58 @@ func (x *Employee) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+type Customer struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Name          string                 `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Login         string                 `protobuf:"bytes,2,opt,name=login,proto3" json:"login,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *Customer) Reset() {
+	*x = Customer{}
+	mi := &file_olympus_scraper_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *Customer) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*Customer) ProtoMessage() {}
+
+func (x *Customer) ProtoReflect() protoreflect.Message {
+	mi := &file_olympus_scraper_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use Customer.ProtoReflect.Descriptor instead.
+func (*Customer) Descriptor() ([]byte, []int) {
+	return file_olympus_scraper_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *Customer) GetName() string {
+	if x != nil {
+		return x.Name
+	}
+	return ""
+}
+
+func (x *Customer) GetLogin() string {
+	if x != nil {
+		return x.Login
+	}
+	return ""
+}
+
 type Task struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
 	Id            int64                  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
@@ -131,18 +183,17 @@ type Task struct {
 	ClosingDate   *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=closing_date,json=closingDate,proto3" json:"closing_date,omitempty"`
 	Description   string                 `protobuf:"bytes,5,opt,name=description,proto3" json:"description,omitempty"`
 	Address       string                 `protobuf:"bytes,6,opt,name=address,proto3" json:"address,omitempty"`
-	CustomerName  string                 `protobuf:"bytes,7,opt,name=customer_name,json=customerName,proto3" json:"customer_name,omitempty"`
-	CustomerLogin string                 `protobuf:"bytes,8,opt,name=customer_login,json=customerLogin,proto3" json:"customer_login,omitempty"`
-	Comments      []string               `protobuf:"bytes,9,rep,name=comments,proto3" json:"comments,omitempty"`
-	Executors     []string               `protobuf:"bytes,10,rep,name=executors,proto3" json:"executors,omitempty"`
-	IsClosed      bool                   `protobuf:"varint,11,opt,name=is_closed,json=isClosed,proto3" json:"is_closed,omitempty"`
+	Customers     *Customer              `protobuf:"bytes,7,opt,name=customers,proto3" json:"customers,omitempty"`
+	Comments      []string               `protobuf:"bytes,8,rep,name=comments,proto3" json:"comments,omitempty"`
+	Executors     []string               `protobuf:"bytes,9,rep,name=executors,proto3" json:"executors,omitempty"`
+	IsClosed      bool                   `protobuf:"varint,10,opt,name=is_closed,json=isClosed,proto3" json:"is_closed,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
 func (x *Task) Reset() {
 	*x = Task{}
-	mi := &file_olympus_scraper_proto_msgTypes[1]
+	mi := &file_olympus_scraper_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -154,7 +205,7 @@ func (x *Task) String() string {
 func (*Task) ProtoMessage() {}
 
 func (x *Task) ProtoReflect() protoreflect.Message {
-	mi := &file_olympus_scraper_proto_msgTypes[1]
+	mi := &file_olympus_scraper_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -167,7 +218,7 @@ func (x *Task) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Task.ProtoReflect.Descriptor instead.
 func (*Task) Descriptor() ([]byte, []int) {
-	return file_olympus_scraper_proto_rawDescGZIP(), []int{1}
+	return file_olympus_scraper_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *Task) GetId() int64 {
@@ -212,18 +263,11 @@ func (x *Task) GetAddress() string {
 	return ""
 }
 
-func (x *Task) GetCustomerName() string {
+func (x *Task) GetCustomers() *Customer {
 	if x != nil {
-		return x.CustomerName
+		return x.Customers
 	}
-	return ""
-}
-
-func (x *Task) GetCustomerLogin() string {
-	if x != nil {
-		return x.CustomerLogin
-	}
-	return ""
+	return nil
 }
 
 func (x *Task) GetComments() []string {
@@ -256,7 +300,7 @@ type GetEmployeesRequest struct {
 
 func (x *GetEmployeesRequest) Reset() {
 	*x = GetEmployeesRequest{}
-	mi := &file_olympus_scraper_proto_msgTypes[2]
+	mi := &file_olympus_scraper_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -268,7 +312,7 @@ func (x *GetEmployeesRequest) String() string {
 func (*GetEmployeesRequest) ProtoMessage() {}
 
 func (x *GetEmployeesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_olympus_scraper_proto_msgTypes[2]
+	mi := &file_olympus_scraper_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -281,7 +325,7 @@ func (x *GetEmployeesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetEmployeesRequest.ProtoReflect.Descriptor instead.
 func (*GetEmployeesRequest) Descriptor() ([]byte, []int) {
-	return file_olympus_scraper_proto_rawDescGZIP(), []int{2}
+	return file_olympus_scraper_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GetEmployeesRequest) GetKnownHash() string {
@@ -301,7 +345,7 @@ type GetEmployeesResponse struct {
 
 func (x *GetEmployeesResponse) Reset() {
 	*x = GetEmployeesResponse{}
-	mi := &file_olympus_scraper_proto_msgTypes[3]
+	mi := &file_olympus_scraper_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -313,7 +357,7 @@ func (x *GetEmployeesResponse) String() string {
 func (*GetEmployeesResponse) ProtoMessage() {}
 
 func (x *GetEmployeesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_olympus_scraper_proto_msgTypes[3]
+	mi := &file_olympus_scraper_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -326,7 +370,7 @@ func (x *GetEmployeesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetEmployeesResponse.ProtoReflect.Descriptor instead.
 func (*GetEmployeesResponse) Descriptor() ([]byte, []int) {
-	return file_olympus_scraper_proto_rawDescGZIP(), []int{3}
+	return file_olympus_scraper_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *GetEmployeesResponse) GetNewHash() string {
@@ -353,7 +397,7 @@ type GetDailyTasksRequest struct {
 
 func (x *GetDailyTasksRequest) Reset() {
 	*x = GetDailyTasksRequest{}
-	mi := &file_olympus_scraper_proto_msgTypes[4]
+	mi := &file_olympus_scraper_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -365,7 +409,7 @@ func (x *GetDailyTasksRequest) String() string {
 func (*GetDailyTasksRequest) ProtoMessage() {}
 
 func (x *GetDailyTasksRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_olympus_scraper_proto_msgTypes[4]
+	mi := &file_olympus_scraper_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -378,7 +422,7 @@ func (x *GetDailyTasksRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetDailyTasksRequest.ProtoReflect.Descriptor instead.
 func (*GetDailyTasksRequest) Descriptor() ([]byte, []int) {
-	return file_olympus_scraper_proto_rawDescGZIP(), []int{4}
+	return file_olympus_scraper_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *GetDailyTasksRequest) GetKnownHash() string {
@@ -405,7 +449,7 @@ type GetDailyTasksResponse struct {
 
 func (x *GetDailyTasksResponse) Reset() {
 	*x = GetDailyTasksResponse{}
-	mi := &file_olympus_scraper_proto_msgTypes[5]
+	mi := &file_olympus_scraper_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -417,7 +461,7 @@ func (x *GetDailyTasksResponse) String() string {
 func (*GetDailyTasksResponse) ProtoMessage() {}
 
 func (x *GetDailyTasksResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_olympus_scraper_proto_msgTypes[5]
+	mi := &file_olympus_scraper_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -430,7 +474,7 @@ func (x *GetDailyTasksResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetDailyTasksResponse.ProtoReflect.Descriptor instead.
 func (*GetDailyTasksResponse) Descriptor() ([]byte, []int) {
-	return file_olympus_scraper_proto_rawDescGZIP(), []int{5}
+	return file_olympus_scraper_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GetDailyTasksResponse) GetNewHash() string {
@@ -456,7 +500,7 @@ type GetTaskTypesRequest struct {
 
 func (x *GetTaskTypesRequest) Reset() {
 	*x = GetTaskTypesRequest{}
-	mi := &file_olympus_scraper_proto_msgTypes[6]
+	mi := &file_olympus_scraper_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -468,7 +512,7 @@ func (x *GetTaskTypesRequest) String() string {
 func (*GetTaskTypesRequest) ProtoMessage() {}
 
 func (x *GetTaskTypesRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_olympus_scraper_proto_msgTypes[6]
+	mi := &file_olympus_scraper_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -481,7 +525,7 @@ func (x *GetTaskTypesRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTaskTypesRequest.ProtoReflect.Descriptor instead.
 func (*GetTaskTypesRequest) Descriptor() ([]byte, []int) {
-	return file_olympus_scraper_proto_rawDescGZIP(), []int{6}
+	return file_olympus_scraper_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetTaskTypesRequest) GetKnownHash() string {
@@ -501,7 +545,7 @@ type GetTaskTypesResponse struct {
 
 func (x *GetTaskTypesResponse) Reset() {
 	*x = GetTaskTypesResponse{}
-	mi := &file_olympus_scraper_proto_msgTypes[7]
+	mi := &file_olympus_scraper_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -513,7 +557,7 @@ func (x *GetTaskTypesResponse) String() string {
 func (*GetTaskTypesResponse) ProtoMessage() {}
 
 func (x *GetTaskTypesResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_olympus_scraper_proto_msgTypes[7]
+	mi := &file_olympus_scraper_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -526,7 +570,7 @@ func (x *GetTaskTypesResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetTaskTypesResponse.ProtoReflect.Descriptor instead.
 func (*GetTaskTypesResponse) Descriptor() ([]byte, []int) {
-	return file_olympus_scraper_proto_rawDescGZIP(), []int{7}
+	return file_olympus_scraper_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *GetTaskTypesResponse) GetNewHash() string {
@@ -558,20 +602,22 @@ const file_olympus_scraper_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\a \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"\x89\x03\n" +
+	"updated_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"4\n" +
+	"\bCustomer\x12\x12\n" +
+	"\x04name\x18\x01 \x01(\tR\x04name\x12\x14\n" +
+	"\x05login\x18\x02 \x01(\tR\x05login\"\xee\x02\n" +
 	"\x04Task\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\x03R\x02id\x12\x12\n" +
 	"\x04type\x18\x02 \x01(\tR\x04type\x12?\n" +
 	"\rcreation_date\x18\x03 \x01(\v2\x1a.google.protobuf.TimestampR\fcreationDate\x12=\n" +
 	"\fclosing_date\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\vclosingDate\x12 \n" +
 	"\vdescription\x18\x05 \x01(\tR\vdescription\x12\x18\n" +
-	"\aaddress\x18\x06 \x01(\tR\aaddress\x12#\n" +
-	"\rcustomer_name\x18\a \x01(\tR\fcustomerName\x12%\n" +
-	"\x0ecustomer_login\x18\b \x01(\tR\rcustomerLogin\x12\x1a\n" +
-	"\bcomments\x18\t \x03(\tR\bcomments\x12\x1c\n" +
-	"\texecutors\x18\n" +
-	" \x03(\tR\texecutors\x12\x1b\n" +
-	"\tis_closed\x18\v \x01(\bR\bisClosed\"4\n" +
+	"\aaddress\x18\x06 \x01(\tR\aaddress\x12/\n" +
+	"\tcustomers\x18\a \x01(\v2\x11.scraper.CustomerR\tcustomers\x12\x1a\n" +
+	"\bcomments\x18\b \x03(\tR\bcomments\x12\x1c\n" +
+	"\texecutors\x18\t \x03(\tR\texecutors\x12\x1b\n" +
+	"\tis_closed\x18\n" +
+	" \x01(\bR\bisClosed\"4\n" +
 	"\x13GetEmployeesRequest\x12\x1d\n" +
 	"\n" +
 	"known_hash\x18\x01 \x01(\tR\tknownHash\"b\n" +
@@ -608,38 +654,40 @@ func file_olympus_scraper_proto_rawDescGZIP() []byte {
 	return file_olympus_scraper_proto_rawDescData
 }
 
-var file_olympus_scraper_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
+var file_olympus_scraper_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
 var file_olympus_scraper_proto_goTypes = []any{
 	(*Employee)(nil),               // 0: scraper.Employee
-	(*Task)(nil),                   // 1: scraper.Task
-	(*GetEmployeesRequest)(nil),    // 2: scraper.GetEmployeesRequest
-	(*GetEmployeesResponse)(nil),   // 3: scraper.GetEmployeesResponse
-	(*GetDailyTasksRequest)(nil),   // 4: scraper.GetDailyTasksRequest
-	(*GetDailyTasksResponse)(nil),  // 5: scraper.GetDailyTasksResponse
-	(*GetTaskTypesRequest)(nil),    // 6: scraper.GetTaskTypesRequest
-	(*GetTaskTypesResponse)(nil),   // 7: scraper.GetTaskTypesResponse
-	(*timestamppb.Timestamp)(nil),  // 8: google.protobuf.Timestamp
-	(*wrapperspb.StringValue)(nil), // 9: google.protobuf.StringValue
+	(*Customer)(nil),               // 1: scraper.Customer
+	(*Task)(nil),                   // 2: scraper.Task
+	(*GetEmployeesRequest)(nil),    // 3: scraper.GetEmployeesRequest
+	(*GetEmployeesResponse)(nil),   // 4: scraper.GetEmployeesResponse
+	(*GetDailyTasksRequest)(nil),   // 5: scraper.GetDailyTasksRequest
+	(*GetDailyTasksResponse)(nil),  // 6: scraper.GetDailyTasksResponse
+	(*GetTaskTypesRequest)(nil),    // 7: scraper.GetTaskTypesRequest
+	(*GetTaskTypesResponse)(nil),   // 8: scraper.GetTaskTypesResponse
+	(*timestamppb.Timestamp)(nil),  // 9: google.protobuf.Timestamp
+	(*wrapperspb.StringValue)(nil), // 10: google.protobuf.StringValue
 }
 var file_olympus_scraper_proto_depIdxs = []int32{
-	8,  // 0: scraper.Employee.created_at:type_name -> google.protobuf.Timestamp
-	8,  // 1: scraper.Employee.updated_at:type_name -> google.protobuf.Timestamp
-	8,  // 2: scraper.Task.creation_date:type_name -> google.protobuf.Timestamp
-	8,  // 3: scraper.Task.closing_date:type_name -> google.protobuf.Timestamp
-	0,  // 4: scraper.GetEmployeesResponse.employees:type_name -> scraper.Employee
-	9,  // 5: scraper.GetDailyTasksRequest.date:type_name -> google.protobuf.StringValue
-	1,  // 6: scraper.GetDailyTasksResponse.tasks:type_name -> scraper.Task
-	2,  // 7: scraper.ScraperService.GetEmployees:input_type -> scraper.GetEmployeesRequest
-	4,  // 8: scraper.ScraperService.GetDailyTasks:input_type -> scraper.GetDailyTasksRequest
-	6,  // 9: scraper.ScraperService.GetTaskTypes:input_type -> scraper.GetTaskTypesRequest
-	3,  // 10: scraper.ScraperService.GetEmployees:output_type -> scraper.GetEmployeesResponse
-	5,  // 11: scraper.ScraperService.GetDailyTasks:output_type -> scraper.GetDailyTasksResponse
-	7,  // 12: scraper.ScraperService.GetTaskTypes:output_type -> scraper.GetTaskTypesResponse
-	10, // [10:13] is the sub-list for method output_type
-	7,  // [7:10] is the sub-list for method input_type
-	7,  // [7:7] is the sub-list for extension type_name
-	7,  // [7:7] is the sub-list for extension extendee
-	0,  // [0:7] is the sub-list for field type_name
+	9,  // 0: scraper.Employee.created_at:type_name -> google.protobuf.Timestamp
+	9,  // 1: scraper.Employee.updated_at:type_name -> google.protobuf.Timestamp
+	9,  // 2: scraper.Task.creation_date:type_name -> google.protobuf.Timestamp
+	9,  // 3: scraper.Task.closing_date:type_name -> google.protobuf.Timestamp
+	1,  // 4: scraper.Task.customers:type_name -> scraper.Customer
+	0,  // 5: scraper.GetEmployeesResponse.employees:type_name -> scraper.Employee
+	10, // 6: scraper.GetDailyTasksRequest.date:type_name -> google.protobuf.StringValue
+	2,  // 7: scraper.GetDailyTasksResponse.tasks:type_name -> scraper.Task
+	3,  // 8: scraper.ScraperService.GetEmployees:input_type -> scraper.GetEmployeesRequest
+	5,  // 9: scraper.ScraperService.GetDailyTasks:input_type -> scraper.GetDailyTasksRequest
+	7,  // 10: scraper.ScraperService.GetTaskTypes:input_type -> scraper.GetTaskTypesRequest
+	4,  // 11: scraper.ScraperService.GetEmployees:output_type -> scraper.GetEmployeesResponse
+	6,  // 12: scraper.ScraperService.GetDailyTasks:output_type -> scraper.GetDailyTasksResponse
+	8,  // 13: scraper.ScraperService.GetTaskTypes:output_type -> scraper.GetTaskTypesResponse
+	11, // [11:14] is the sub-list for method output_type
+	8,  // [8:11] is the sub-list for method input_type
+	8,  // [8:8] is the sub-list for extension type_name
+	8,  // [8:8] is the sub-list for extension extendee
+	0,  // [0:8] is the sub-list for field type_name
 }
 
 func init() { file_olympus_scraper_proto_init() }
@@ -653,7 +701,7 @@ func file_olympus_scraper_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_olympus_scraper_proto_rawDesc), len(file_olympus_scraper_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   8,
+			NumMessages:   9,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
