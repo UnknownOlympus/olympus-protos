@@ -19,8 +19,9 @@ message Employee {
 }
 
 message Customer {
-  string name = 1;
-  string login = 2;
+  int64 id = 1;
+  string name = 2;
+  string login = 3;
 }
 
 message Task {
