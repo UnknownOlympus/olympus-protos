@@ -22,6 +22,7 @@ const (
 	ScraperService_GetEmployees_FullMethodName  = "/scraper.ScraperService/GetEmployees"
 	ScraperService_GetDailyTasks_FullMethodName = "/scraper.ScraperService/GetDailyTasks"
 	ScraperService_GetTaskTypes_FullMethodName  = "/scraper.ScraperService/GetTaskTypes"
+	ScraperService_GetAgreements_FullMethodName = "/scraper.ScraperService/GetAgreements"
 )
 
 // ScraperServiceClient is the client API for ScraperService service.
@@ -34,6 +35,8 @@ type ScraperServiceClient interface {
 	GetDailyTasks(ctx context.Context, in *GetDailyTasksRequest, opts ...grpc.CallOption) (*GetDailyTasksResponse, error)
 	// Method to get a list of type of tasks.
 	GetTaskTypes(ctx context.Context, in *GetTaskTypesRequest, opts ...grpc.CallOption) (*GetTaskTypesResponse, error)
+	// Method to get a list of agreements with ID or fullname
+	GetAgreements(ctx context.Context, in *GetAgreementsRequest, opts ...grpc.CallOption) (*GetAgreementsResponse, error)
 }
 
 type scraperServiceClient struct {
@@ -74,6 +77,16 @@ func (c *scraperServiceClient) GetTaskTypes(ctx context.Context, in *GetTaskType
 	return out, nil
 }
 
+func (c *scraperServiceClient) GetAgreements(ctx context.Context, in *GetAgreementsRequest, opts ...grpc.CallOption) (*GetAgreementsResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAgreementsResponse)
+	err := c.cc.Invoke(ctx, ScraperService_GetAgreements_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ScraperServiceServer is the server API for ScraperService service.
 // All implementations must embed UnimplementedScraperServiceServer
 // for forward compatibility.
@@ -84,6 +97,8 @@ type ScraperServiceServer interface {
 	GetDailyTasks(context.Context, *GetDailyTasksRequest) (*GetDailyTasksResponse, error)
 	// Method to get a list of type of tasks.
 	GetTaskTypes(context.Context, *GetTaskTypesRequest) (*GetTaskTypesResponse, error)
+	// Method to get a list of agreements with ID or fullname
+	GetAgreements(context.Context, *GetAgreementsRequest) (*GetAgreementsResponse, error)
 	mustEmbedUnimplementedScraperServiceServer()
 }
 
@@ -102,6 +117,9 @@ func (UnimplementedScraperServiceServer) GetDailyTasks(context.Context, *GetDail
 }
 func (UnimplementedScraperServiceServer) GetTaskTypes(context.Context, *GetTaskTypesRequest) (*GetTaskTypesResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTaskTypes not implemented")
+}
+func (UnimplementedScraperServiceServer) GetAgreements(context.Context, *GetAgreementsRequest) (*GetAgreementsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAgreements not implemented")
 }
 func (UnimplementedScraperServiceServer) mustEmbedUnimplementedScraperServiceServer() {}
 func (UnimplementedScraperServiceServer) testEmbeddedByValue()                        {}
@@ -178,6 +196,24 @@ func _ScraperService_GetTaskTypes_Handler(srv interface{}, ctx context.Context, 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ScraperService_GetAgreements_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAgreementsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScraperServiceServer).GetAgreements(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScraperService_GetAgreements_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScraperServiceServer).GetAgreements(ctx, req.(*GetAgreementsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ScraperService_ServiceDesc is the grpc.ServiceDesc for ScraperService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -196,6 +232,10 @@ var ScraperService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTaskTypes",
 			Handler:    _ScraperService_GetTaskTypes_Handler,
+		},
+		{
+			MethodName: "GetAgreements",
+			Handler:    _ScraperService_GetAgreements_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

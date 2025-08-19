@@ -37,6 +37,17 @@ message Task {
   bool is_closed = 10;
 }
 
+message Agreement {
+  int64 id = 1;
+  string ip = 2;
+  string contract = 3;
+  string name = 4;
+  string balance = 5;
+  string tariff = 6;
+  string address = 7;
+  string number = 8;
+}
+
 // message GetCommutationRequest {
 //   double latitude = 1;
 //   double longitude = 2;
@@ -65,6 +76,9 @@ service ScraperService {
 
   // Method to get a list of type of tasks.
   rpc GetTaskTypes(GetTaskTypesRequest) returns (GetTaskTypesResponse);
+
+  // Method to get a list of agreements with ID or fullname
+  rpc GetAgreements(GetAgreementsRequest) returns (GetAgreementsResponse);
 }
 
 message GetEmployeesRequest {
@@ -79,7 +93,6 @@ message GetDailyTasksRequest {
   string known_hash = 1;
   google.protobuf.StringValue date = 2;
 }
-
 message GetDailyTasksResponse {
   string new_hash = 1;
   repeated Task tasks = 2;
@@ -88,8 +101,17 @@ message GetDailyTasksResponse {
 message GetTaskTypesRequest {
   string known_hash = 1;
 }
-
 message GetTaskTypesResponse {
   string new_hash = 1;
   repeated string types = 2;
+}
+
+message GetAgreementsRequest {
+  oneof identifier {
+    int64 customer_id = 1;
+    string customer_name = 2;
+  }
+}
+message GetAgreementsResponse {
+  repeated Agreement agreements = 1;
 }
