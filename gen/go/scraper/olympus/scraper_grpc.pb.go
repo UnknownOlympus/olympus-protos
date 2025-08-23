@@ -23,6 +23,7 @@ const (
 	ScraperService_GetDailyTasks_FullMethodName = "/scraper.ScraperService/GetDailyTasks"
 	ScraperService_GetTaskTypes_FullMethodName  = "/scraper.ScraperService/GetTaskTypes"
 	ScraperService_GetAgreements_FullMethodName = "/scraper.ScraperService/GetAgreements"
+	ScraperService_AddComment_FullMethodName    = "/scraper.ScraperService/AddComment"
 )
 
 // ScraperServiceClient is the client API for ScraperService service.
@@ -37,6 +38,8 @@ type ScraperServiceClient interface {
 	GetTaskTypes(ctx context.Context, in *GetTaskTypesRequest, opts ...grpc.CallOption) (*GetTaskTypesResponse, error)
 	// Method to get a list of agreements with ID or fullname
 	GetAgreements(ctx context.Context, in *GetAgreementsRequest, opts ...grpc.CallOption) (*GetAgreementsResponse, error)
+	// Method to add comment for the task, returns all comments
+	AddComment(ctx context.Context, in *AddCommentRequest, opts ...grpc.CallOption) (*AddCommentResponse, error)
 }
 
 type scraperServiceClient struct {
@@ -87,6 +90,16 @@ func (c *scraperServiceClient) GetAgreements(ctx context.Context, in *GetAgreeme
 	return out, nil
 }
 
+func (c *scraperServiceClient) AddComment(ctx context.Context, in *AddCommentRequest, opts ...grpc.CallOption) (*AddCommentResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AddCommentResponse)
+	err := c.cc.Invoke(ctx, ScraperService_AddComment_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // ScraperServiceServer is the server API for ScraperService service.
 // All implementations must embed UnimplementedScraperServiceServer
 // for forward compatibility.
@@ -99,6 +112,8 @@ type ScraperServiceServer interface {
 	GetTaskTypes(context.Context, *GetTaskTypesRequest) (*GetTaskTypesResponse, error)
 	// Method to get a list of agreements with ID or fullname
 	GetAgreements(context.Context, *GetAgreementsRequest) (*GetAgreementsResponse, error)
+	// Method to add comment for the task, returns all comments
+	AddComment(context.Context, *AddCommentRequest) (*AddCommentResponse, error)
 	mustEmbedUnimplementedScraperServiceServer()
 }
 
@@ -120,6 +135,9 @@ func (UnimplementedScraperServiceServer) GetTaskTypes(context.Context, *GetTaskT
 }
 func (UnimplementedScraperServiceServer) GetAgreements(context.Context, *GetAgreementsRequest) (*GetAgreementsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAgreements not implemented")
+}
+func (UnimplementedScraperServiceServer) AddComment(context.Context, *AddCommentRequest) (*AddCommentResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddComment not implemented")
 }
 func (UnimplementedScraperServiceServer) mustEmbedUnimplementedScraperServiceServer() {}
 func (UnimplementedScraperServiceServer) testEmbeddedByValue()                        {}
@@ -214,6 +232,24 @@ func _ScraperService_GetAgreements_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _ScraperService_AddComment_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(AddCommentRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(ScraperServiceServer).AddComment(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: ScraperService_AddComment_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(ScraperServiceServer).AddComment(ctx, req.(*AddCommentRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // ScraperService_ServiceDesc is the grpc.ServiceDesc for ScraperService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -236,6 +272,10 @@ var ScraperService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAgreements",
 			Handler:    _ScraperService_GetAgreements_Handler,
+		},
+		{
+			MethodName: "AddComment",
+			Handler:    _ScraperService_AddComment_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

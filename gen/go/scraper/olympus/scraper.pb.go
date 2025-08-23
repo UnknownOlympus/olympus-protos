@@ -821,6 +821,110 @@ func (x *GetAgreementsResponse) GetAgreements() []*Agreement {
 	return nil
 }
 
+type AddCommentRequest struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	TaskId        int64                  `protobuf:"varint,1,opt,name=task_id,json=taskId,proto3" json:"task_id,omitempty"`
+	Text          string                 `protobuf:"bytes,2,opt,name=text,proto3" json:"text,omitempty"`
+	Author        string                 `protobuf:"bytes,3,opt,name=author,proto3" json:"author,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddCommentRequest) Reset() {
+	*x = AddCommentRequest{}
+	mi := &file_olympus_scraper_proto_msgTypes[12]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddCommentRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddCommentRequest) ProtoMessage() {}
+
+func (x *AddCommentRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_olympus_scraper_proto_msgTypes[12]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddCommentRequest.ProtoReflect.Descriptor instead.
+func (*AddCommentRequest) Descriptor() ([]byte, []int) {
+	return file_olympus_scraper_proto_rawDescGZIP(), []int{12}
+}
+
+func (x *AddCommentRequest) GetTaskId() int64 {
+	if x != nil {
+		return x.TaskId
+	}
+	return 0
+}
+
+func (x *AddCommentRequest) GetText() string {
+	if x != nil {
+		return x.Text
+	}
+	return ""
+}
+
+func (x *AddCommentRequest) GetAuthor() string {
+	if x != nil {
+		return x.Author
+	}
+	return ""
+}
+
+type AddCommentResponse struct {
+	state         protoimpl.MessageState `protogen:"open.v1"`
+	Comments      []string               `protobuf:"bytes,1,rep,name=comments,proto3" json:"comments,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *AddCommentResponse) Reset() {
+	*x = AddCommentResponse{}
+	mi := &file_olympus_scraper_proto_msgTypes[13]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AddCommentResponse) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AddCommentResponse) ProtoMessage() {}
+
+func (x *AddCommentResponse) ProtoReflect() protoreflect.Message {
+	mi := &file_olympus_scraper_proto_msgTypes[13]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AddCommentResponse.ProtoReflect.Descriptor instead.
+func (*AddCommentResponse) Descriptor() ([]byte, []int) {
+	return file_olympus_scraper_proto_rawDescGZIP(), []int{13}
+}
+
+func (x *AddCommentResponse) GetComments() []string {
+	if x != nil {
+		return x.Comments
+	}
+	return nil
+}
+
 var File_olympus_scraper_proto protoreflect.FileDescriptor
 
 const file_olympus_scraper_proto_rawDesc = "" +
@@ -890,12 +994,20 @@ const file_olympus_scraper_proto_rawDesc = "" +
 	"\x15GetAgreementsResponse\x122\n" +
 	"\n" +
 	"agreements\x18\x01 \x03(\v2\x12.scraper.AgreementR\n" +
-	"agreements2\xca\x02\n" +
+	"agreements\"X\n" +
+	"\x11AddCommentRequest\x12\x17\n" +
+	"\atask_id\x18\x01 \x01(\x03R\x06taskId\x12\x12\n" +
+	"\x04text\x18\x02 \x01(\tR\x04text\x12\x16\n" +
+	"\x06author\x18\x03 \x01(\tR\x06author\"0\n" +
+	"\x12AddCommentResponse\x12\x1a\n" +
+	"\bcomments\x18\x01 \x03(\tR\bcomments2\x91\x03\n" +
 	"\x0eScraperService\x12K\n" +
 	"\fGetEmployees\x12\x1c.scraper.GetEmployeesRequest\x1a\x1d.scraper.GetEmployeesResponse\x12N\n" +
 	"\rGetDailyTasks\x12\x1d.scraper.GetDailyTasksRequest\x1a\x1e.scraper.GetDailyTasksResponse\x12K\n" +
 	"\fGetTaskTypes\x12\x1c.scraper.GetTaskTypesRequest\x1a\x1d.scraper.GetTaskTypesResponse\x12N\n" +
-	"\rGetAgreements\x12\x1d.scraper.GetAgreementsRequest\x1a\x1e.scraper.GetAgreementsResponseBAZ?github.com/UnknownOlympus/olympus-protos/gen/go/scraper/olympusb\x06proto3"
+	"\rGetAgreements\x12\x1d.scraper.GetAgreementsRequest\x1a\x1e.scraper.GetAgreementsResponse\x12E\n" +
+	"\n" +
+	"AddComment\x12\x1a.scraper.AddCommentRequest\x1a\x1b.scraper.AddCommentResponseBAZ?github.com/UnknownOlympus/olympus-protos/gen/go/scraper/olympusb\x06proto3"
 
 var (
 	file_olympus_scraper_proto_rawDescOnce sync.Once
@@ -909,7 +1021,7 @@ func file_olympus_scraper_proto_rawDescGZIP() []byte {
 	return file_olympus_scraper_proto_rawDescData
 }
 
-var file_olympus_scraper_proto_msgTypes = make([]protoimpl.MessageInfo, 12)
+var file_olympus_scraper_proto_msgTypes = make([]protoimpl.MessageInfo, 14)
 var file_olympus_scraper_proto_goTypes = []any{
 	(*Employee)(nil),               // 0: scraper.Employee
 	(*Customer)(nil),               // 1: scraper.Customer
@@ -923,29 +1035,33 @@ var file_olympus_scraper_proto_goTypes = []any{
 	(*GetTaskTypesResponse)(nil),   // 9: scraper.GetTaskTypesResponse
 	(*GetAgreementsRequest)(nil),   // 10: scraper.GetAgreementsRequest
 	(*GetAgreementsResponse)(nil),  // 11: scraper.GetAgreementsResponse
-	(*timestamppb.Timestamp)(nil),  // 12: google.protobuf.Timestamp
-	(*wrapperspb.StringValue)(nil), // 13: google.protobuf.StringValue
+	(*AddCommentRequest)(nil),      // 12: scraper.AddCommentRequest
+	(*AddCommentResponse)(nil),     // 13: scraper.AddCommentResponse
+	(*timestamppb.Timestamp)(nil),  // 14: google.protobuf.Timestamp
+	(*wrapperspb.StringValue)(nil), // 15: google.protobuf.StringValue
 }
 var file_olympus_scraper_proto_depIdxs = []int32{
-	12, // 0: scraper.Employee.created_at:type_name -> google.protobuf.Timestamp
-	12, // 1: scraper.Employee.updated_at:type_name -> google.protobuf.Timestamp
-	12, // 2: scraper.Task.creation_date:type_name -> google.protobuf.Timestamp
-	12, // 3: scraper.Task.closing_date:type_name -> google.protobuf.Timestamp
+	14, // 0: scraper.Employee.created_at:type_name -> google.protobuf.Timestamp
+	14, // 1: scraper.Employee.updated_at:type_name -> google.protobuf.Timestamp
+	14, // 2: scraper.Task.creation_date:type_name -> google.protobuf.Timestamp
+	14, // 3: scraper.Task.closing_date:type_name -> google.protobuf.Timestamp
 	1,  // 4: scraper.Task.customers:type_name -> scraper.Customer
 	0,  // 5: scraper.GetEmployeesResponse.employees:type_name -> scraper.Employee
-	13, // 6: scraper.GetDailyTasksRequest.date:type_name -> google.protobuf.StringValue
+	15, // 6: scraper.GetDailyTasksRequest.date:type_name -> google.protobuf.StringValue
 	2,  // 7: scraper.GetDailyTasksResponse.tasks:type_name -> scraper.Task
 	3,  // 8: scraper.GetAgreementsResponse.agreements:type_name -> scraper.Agreement
 	4,  // 9: scraper.ScraperService.GetEmployees:input_type -> scraper.GetEmployeesRequest
 	6,  // 10: scraper.ScraperService.GetDailyTasks:input_type -> scraper.GetDailyTasksRequest
 	8,  // 11: scraper.ScraperService.GetTaskTypes:input_type -> scraper.GetTaskTypesRequest
 	10, // 12: scraper.ScraperService.GetAgreements:input_type -> scraper.GetAgreementsRequest
-	5,  // 13: scraper.ScraperService.GetEmployees:output_type -> scraper.GetEmployeesResponse
-	7,  // 14: scraper.ScraperService.GetDailyTasks:output_type -> scraper.GetDailyTasksResponse
-	9,  // 15: scraper.ScraperService.GetTaskTypes:output_type -> scraper.GetTaskTypesResponse
-	11, // 16: scraper.ScraperService.GetAgreements:output_type -> scraper.GetAgreementsResponse
-	13, // [13:17] is the sub-list for method output_type
-	9,  // [9:13] is the sub-list for method input_type
+	12, // 13: scraper.ScraperService.AddComment:input_type -> scraper.AddCommentRequest
+	5,  // 14: scraper.ScraperService.GetEmployees:output_type -> scraper.GetEmployeesResponse
+	7,  // 15: scraper.ScraperService.GetDailyTasks:output_type -> scraper.GetDailyTasksResponse
+	9,  // 16: scraper.ScraperService.GetTaskTypes:output_type -> scraper.GetTaskTypesResponse
+	11, // 17: scraper.ScraperService.GetAgreements:output_type -> scraper.GetAgreementsResponse
+	13, // 18: scraper.ScraperService.AddComment:output_type -> scraper.AddCommentResponse
+	14, // [14:19] is the sub-list for method output_type
+	9,  // [9:14] is the sub-list for method input_type
 	9,  // [9:9] is the sub-list for extension type_name
 	9,  // [9:9] is the sub-list for extension extendee
 	0,  // [0:9] is the sub-list for field type_name
@@ -966,7 +1082,7 @@ func file_olympus_scraper_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_olympus_scraper_proto_rawDesc), len(file_olympus_scraper_proto_rawDesc)),
 			NumEnums:      0,
-			NumMessages:   12,
+			NumMessages:   14,
 			NumExtensions: 0,
 			NumServices:   1,
 		},

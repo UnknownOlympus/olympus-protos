@@ -79,6 +79,9 @@ service ScraperService {
 
   // Method to get a list of agreements with ID or fullname
   rpc GetAgreements(GetAgreementsRequest) returns (GetAgreementsResponse);
+
+  // Method to add comment for the task, returns all comments
+  rpc AddComment(AddCommentRequest) returns (AddCommentResponse);
 }
 
 message GetEmployeesRequest {
@@ -114,4 +117,14 @@ message GetAgreementsRequest {
 }
 message GetAgreementsResponse {
   repeated Agreement agreements = 1;
+}
+
+message AddCommentRequest {
+  int64 task_id = 1;
+  string text = 2;
+  string author = 3;
+}
+
+message AddCommentResponse {
+  repeated string comments = 1;
 }
